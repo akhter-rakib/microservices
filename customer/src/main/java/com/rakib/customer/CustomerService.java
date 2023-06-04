@@ -3,7 +3,7 @@ package com.rakib.customer;
 import org.springframework.stereotype.Service;
 
 @Service
-public record CustomerService() {
+public record CustomerService(CustomerRepository customerRepository) {
 
     public void registerCustomer(CustomerRegistrationRequest customerRequest) {
         Customer customer = Customer.builder()
@@ -11,5 +11,6 @@ public record CustomerService() {
                 .lastName(customerRequest.lastName())
                 .email(customerRequest.email())
                 .build();
+        customerRepository.save(customer);
     }
 }
